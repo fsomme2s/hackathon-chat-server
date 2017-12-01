@@ -14,7 +14,12 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
 
-@ServerEndpoint(value = "/websockets/chat")
+import de.conet.hack.realtime.chat.server.websockets.events.BaseEvent;
+import de.conet.hack.realtime.chat.server.websockets.events.JsonEventDecoder;
+
+@ServerEndpoint(value = "/websockets/chat",
+		decoders = {JsonEventDecoder.class},
+        encoders = {JsonEventDecoder.class})
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class ChatRoomSocketEndpoint implements Serializable {
@@ -30,7 +35,7 @@ public class ChatRoomSocketEndpoint implements Serializable {
 
 
     @OnMessage
-    public void onEvent(Session sender, String event) {
+    public void onEvent(Session sender, BaseEvent event) {
         logger.info("Recieved event from session {}: {}", sender.getId(), event);
     }
 
