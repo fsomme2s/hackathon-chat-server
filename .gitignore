@@ -1,0 +1,8 @@
+.idea/
+seed.iml
+target/
+.settings/
+.classpath
+.project
+server.iml
+chat-server.iml
